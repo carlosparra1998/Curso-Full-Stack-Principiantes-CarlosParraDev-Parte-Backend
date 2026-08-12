@@ -30,3 +30,8 @@ class TaskRepository:
         self.db.add(task)        
         self.db.flush()
         return task
+
+    def delete_task(self, task: TaskORM) -> None:
+        self.db.delete(task)
+        self.db.flush()
+        return

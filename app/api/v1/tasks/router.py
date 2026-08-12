@@ -46,3 +46,19 @@ def modify_task(task_id: int = Path(..., ge=1), task: TaskPut = Body(...), db : 
     except SQLAlchemyError:
         db.rollback()
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='Error en la base de datos')
+
+@router.delete("/{task_id}", status_code=status.HTTP_200_OK)
+def delete_task(task_id: int = Path(..., ge=1), db : Session = Depends(get_db)):
+    repository = TaskRepository(db)
+    try:
+        task_obj = repository.get_task_by_id(task_id=task_id)
+        if not task_obj:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='No existe una tarea con ese id')
+        
+        repository.delete_task(task_obj)
+        db.commit()
+        return
+    
+    except SQLAlchemyError:
+        db.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='Error en la base de datos')
