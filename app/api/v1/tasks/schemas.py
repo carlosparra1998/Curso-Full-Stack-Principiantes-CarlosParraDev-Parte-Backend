@@ -11,3 +11,7 @@ class TaskGet(BaseModel):
 class TaskPost(BaseModel):
     title: str
     is_complete: Optional[bool] = None
+
+class TaskPut(BaseModel):
+    title: Optional[str] = None
+    is_complete: Optional[bool] = None
