@@ -18,7 +18,7 @@ class TaskRepository:
         return self.db.execute(query).scalar_one_or_none()
   
     def create_task(self, task: TaskPost) -> TaskORM:
-        task_obj = TaskORM(title= task.title, is_complete= task.is_complete)
+        task_obj = TaskORM(title= task.title, is_complete= task.is_complete, priority_id= task.priority_id)
         self.db.add(task_obj)
         self.db.flush()
         return task_obj

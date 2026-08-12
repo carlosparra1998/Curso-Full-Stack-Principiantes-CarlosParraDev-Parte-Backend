@@ -9,6 +9,10 @@ class TaskPriorityRepository:
     def __init__(self, db: Session):
         self.db = db
 
+    def get_task_priority_by_id(self, task_priority_id: int) -> Optional[TaskPriorityORM]:
+        query = select(TaskPriorityORM).where(TaskPriorityORM.id == task_priority_id)
+        return self.db.execute(query).scalar_one_or_none()
+
     def get_task_priority_by_name(self, name: str) -> Optional[TaskPriorityORM]:
         query = select(TaskPriorityORM).where(TaskPriorityORM.name == name)
         return self.db.execute(query).scalar_one_or_none()
