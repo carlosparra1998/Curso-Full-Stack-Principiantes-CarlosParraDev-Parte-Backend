@@ -3,3 +3,5 @@ venv/
 settings.json
 *.pyc
 *.db
+*/__pycache__
+*/__pycache__/*
